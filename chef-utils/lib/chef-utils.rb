@@ -15,16 +15,18 @@
 # limitations under the License.
 #
 
-require "chef-utils/service"
-require "chef-utils/which"
-require "chef-utils/path_sanity"
 require "chef-utils/dsl"
+require "chef-utils/path_sanity"
+require "chef-utils/service"
+require "chef-utils/train_helpers"
+require "chef-utils/which"
 
 module ChefUtils
   # everything should be loaded in here, the modules included in the DSL
   # do not need to be individually included
-  extend ChefUtils::Which
-  extend ChefUtils::PathSanity
   extend ChefUtils::DSL
+  extend ChefUtils::PathSanity
   extend ChefUtils::Service
+  extend ChefUtils::TrainHelpers
+  extend ChefUtils::Which
 end

@@ -18,18 +18,12 @@
 
 require_relative "../chef_class"
 require "chef-utils" if defined?(ChefUtils)
-require_relative "../mixin/train_helpers"
 
 class Chef
   class Platform
     # FIXME: deprecated, use ChefUtils::Service instead
     class ServiceHelpers
       class << self
-        include Chef::Mixin::TrainHelpers
-
-        # FIXME: THE REBASE BUSTED THE TRAINHELPERS WHICH NEED TO GET
-        # READDED BACK BUT IN THE CHEFHELPERS STUFF AND MOVED (OR SOMETHING)
-
         def service_resource_providers
           providers = []
 

@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-require "chef-utils/internal"
+require "chef-utils/train_helpers"
 
 module ChefUtils
   # This is for "introspection" helpers in the sense that we are inspecting the
@@ -25,6 +25,8 @@ module ChefUtils
   # higher level facts about the system.
   #
   module Introspection
+    include TrainHelpers
+
     # Returns whether the node is a docker container.
     #
     # @param [Chef::Node] node
@@ -42,7 +44,7 @@ module ChefUtils
     # @return [Boolean]
     #
     def systemd?(node = __getnode)
-      ::File.exist?("/proc/1/comm") && ::File.open("/proc/1/comm").gets.chomp == "systemd"
+      file_exist?("/proc/1/comm") && file_open("/proc/1/comm").gets.chomp == "systemd"
     end
 
     # @param [Chef::Node] node
@@ -64,7 +66,7 @@ module ChefUtils
     class << self
       def has_systemd_service_unit?(svc_name)
         %w{ /etc /usr/lib /lib /run }.any? do |load_path|
-          ::File.exist?(
+          file_exist?(
             "#{load_path}/systemd/system/#{svc_name.gsub(/@.*$/, "@")}.service"
           )
         end
@@ -73,7 +75,7 @@ module ChefUtils
       def has_systemd_unit?(svc_name)
         # TODO: stop supporting non-service units with service resource
         %w{ /etc /usr/lib /lib /run }.any? do |load_path|
-          ::File.exist?("#{load_path}/systemd/system/#{svc_name}")
+          file_exist?("#{load_path}/systemd/system/#{svc_name}")
         end
       end
     end

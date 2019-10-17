@@ -16,46 +16,48 @@
 #
 
 require "chef-utils/internal"
+require "chef-utils/train_helpers"
 
 module ChefUtils
   # NOTE: these are mixed into the service resource+providers specifically and deliberately not
   # injected into the global namespace
   module Service
     include Internal
+    include TrainHelpers
     extend self
 
     def debianrcd?(node = __getnode)
-      ::File.exist?("/usr/sbin/update-rc.d")
+      file_exist?("/usr/sbin/update-rc.d")
     end
 
     def invokercd?(node = __getnode)
-      ::File.exist?("/usr/sbin/invoke-rc.d")
+      file_exist?("/usr/sbin/invoke-rc.d")
     end
 
     def upstart?(node = __getnode)
-      ::File.exist?("/sbin/initctl")
+      file_exist?("/sbin/initctl")
     end
 
     def insserv?(node = __getnode)
-      ::File.exist?("/sbin/insserv")
+      file_exist?("/sbin/insserv")
     end
 
     def redhatrcd?(node = __getnode)
-      ::File.exist?("/sbin/chkconfig")
+      file_exist?("/sbin/chkconfig")
     end
 
     def service_script_exist?(type, script)
       case type
       when :initd
-        ::File.exist?("/etc/init.d/#{script}")
+        file_exist?("/etc/init.d/#{script}")
       when :upstart
-        ::File.exist?("/etc/init/#{script}.conf")
+        file_exist?("/etc/init/#{script}.conf")
       when :xinetd
-        ::File.exist?("/etc/xinetd.d/#{script}")
+        file_exist?("/etc/xinetd.d/#{script}")
       when :etc_rcd
-        ::File.exist?("/etc/rc.d/#{script}")
+        file_exist?("/etc/rc.d/#{script}")
       when :systemd
-        ::File.exist?("/etc/init.d/#{script}") ||
+        file_exist?("/etc/init.d/#{script}") ||
           ChefUtils::Introspection.has_systemd_service_unit?(script) ||
           ChefUtils::Introspection.has_systemd_unit?(script)
       else
