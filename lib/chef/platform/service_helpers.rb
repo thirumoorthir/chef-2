@@ -17,7 +17,7 @@
 #
 
 require_relative "../chef_class"
-require "chef-utils" if defined?(ChefUtils)
+require "chef-utils" if defined?(ChefUtils::CANARY)
 
 class Chef
   class Platform

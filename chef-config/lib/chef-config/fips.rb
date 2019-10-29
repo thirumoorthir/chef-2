@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-require "chef-utils" unless defined?(ChefUtils)
+require "chef-utils" unless defined?(ChefUtils::CANARY)
 
 module ChefConfig
 

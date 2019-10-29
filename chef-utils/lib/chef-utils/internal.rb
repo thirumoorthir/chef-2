@@ -17,15 +17,23 @@
 
 module ChefUtils
   #
-  # This contains a lot of glue code to automagically wire up Cheffy things from chef-client.
+  # This is glue code to make the helpers work when called as ChefUtils.helper? from inside of chef-client.
+  #
+  # This also is glue code to make the helpers work when mixed into classes that have node/run_context methods that
+  # provide those objects.
   #
   # It should not be assumed that any of this code runs from within chef-client and that the
   # Chef class or run_context, etc exists.
   #
   # This gem may be used by gems like mixlib-shellout which can be consumed by external non-Chef utilities,
   # so including brittle code here which depends on the existence of the chef-client will cause broken
-  # behavior downstream.  You must practice defensive coding.  The existing tests may not catch all possible coding
-  # errors here.
+  # behavior downstream.  You must practice defensive coding, and not make assumptions about runnign within chef-client.
+  #
+  # Other consumers may mix in the helper classes and then override the methods here and provide their own custom
+  # wiring and override what is provided here.  They are marked as private because no downstream user should ever touch
+  # them -- they are intended to be subclassable and overridable by Chef developers in other projects.  Chef Software
+  # reserves the right to change the implementation details of this class in minor revs which is what "api private" means,
+  # so external persons should subclass and override only when necessary (submit PRs and issues upstream if this is a problem).
   #
   module Internal
     extend self

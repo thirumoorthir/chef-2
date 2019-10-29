@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-require "chef-utils" unless defined?(ChefUtils)
+require "chef-utils" unless defined?(ChefUtils::CANARY)
 require_relative "../resource"
 require "shellwords" unless defined?(Shellwords)
 require_relative "../dist"

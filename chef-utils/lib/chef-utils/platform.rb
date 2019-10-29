@@ -21,23 +21,10 @@ module ChefUtils
   module Platform
     include Internal
 
-    #
-    # NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
-    #
-    # When adding platforms which are the same name as the platform_family
-    # please add them to the platform_family helpers.  Resolve the namespace
-    # collision by adding a `_platform?` suffix here.  So we have the
-    # debian? platform_family helper and the debian_platform?, ubuntu? and
-    # linuxmint? platform helpers.
-    #
-    # This encourages the use of the platform family via the shorter name and
-    # is backwards compatible with the chef-sugar usage.
-    #
-    # This encourages the use of the platform_family helpers where after adding
-    # a new platform to a platform_family the existing code MAY work unchanged,
-    # while with the use of a platform matcher the existing code will ALWAYS
-    # be guaranteed to fail and must be updated.
-    #
+    # NOTE: if you are adding new platform helpers they should all have the `_platform?` suffix.
+    #       DO NOT add new short aliases without the suffix (they will be deprecated in the future)
+    #       aliases here are mostly for backwards compatibility with chef-sugar and new ones are DISCOURAGED.
+    #       generally there should be one obviously correct way to do things.
 
     # Determine if the current node is linux mint.
     #
@@ -328,9 +315,12 @@ module ChefUtils
     # @return [Boolean]
     #
     def opensuse?(node = __getnode)
-      node["platform"] == "opensuse"
+      node["platform"] == "opensuse" || node["platform"] == "opensuseleap"
     end
     alias_method :opensuse_platform?, :opensuse?
+    alias_method :opensuseleap_platform?, :opensuse?
+    alias_method :leap_platform?, :opensuse?
+    # NOTE: to anyone adding :tumbleweed_platform? - :[opensuse]leap_platform? should be false on tumbleweed, :opensuse[_platform]? should be true
 
     # Determine if the current node is Windows.
     #
@@ -342,7 +332,6 @@ module ChefUtils
       node["platform"] == "windows"
     end
 
-    # FIXME FIXME FIXME: all the rest of the platforms
     extend self
   end
 end

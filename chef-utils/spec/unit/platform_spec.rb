@@ -201,4 +201,17 @@ RSpec.describe ChefUtils::Platform do
 
     reports_true_for(:windows_platform?)
   end
+
+  context "on opensuseleap" do
+    let(:node) { { "platform" => "opensuseleap", "platform_version" => "15.1", "platform_family" => "suse", "os" => "linux" } }
+
+    reports_true_for(:opensuse_platform?, :opensuseleap_platform?, :opensuse?, :leap_platform?)
+  end
+
+  context "on opensuse" do
+    let(:node) { { "platform" => "opensuse", "platform_version" => "11.0", "platform_family" => "suse", "os" => "linux" } }
+
+    reports_true_for(:opensuse_platform?, :opensuseleap_platform?, :opensuse?, :leap_platform?)
+  end
+
 end

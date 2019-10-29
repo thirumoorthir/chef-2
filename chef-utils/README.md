@@ -27,6 +27,7 @@ the `platform_family` helpers unless it is known that code must be special cased
 * `fedora_platform?`
 * `freebsd_platform?`
 * `gentoo_platform?`
+* `leap_platform?`
 * `linuxmint_platform?`
 * `macos_platform?`
 * `netbsd_platform?`
@@ -47,7 +48,7 @@ the `platform_family` helpers unless it is known that code must be special cased
 * `ubuntu_platform?`
 * `windows_platform?`
 
-For campatibility with old chef-sugar code the following aliases work for backwards compatibility
+For campatibility with old chef-sugar code the following aliases work for backwards compatibility, but will be DEPRECATED in the future.
 
 * `centos?`
 * `clearos?`

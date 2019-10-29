@@ -18,7 +18,7 @@
 #
 
 require_relative "../provider"
-require "chef-utils" unless defined?(ChefUtils)
+require "chef-utils" unless defined?(ChefUtils::CANARY)
 
 class Chef
   class Provider

@@ -21,7 +21,7 @@
 
 require "mixlib/config" unless defined?(Mixlib::Config)
 require "pathname" unless defined?(Pathname)
-require "chef-utils" unless defined?(ChefUtils)
+require "chef-utils" unless defined?(ChefUtils::CANARY)
 
 require_relative "fips"
 require_relative "logger"

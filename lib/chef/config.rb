@@ -28,7 +28,7 @@ require "chef-config/logger"
 ChefConfig.logger = Chef::Log
 
 require "chef-config/config"
-require "chef-utils" unless defined?(ChefUtils)
+require "chef-utils" unless defined?(ChefUtils::CANARY)
 require_relative "platform/query_helpers"
 
 # Ohai::Config defines its own log_level and log_location. When loaded, it will

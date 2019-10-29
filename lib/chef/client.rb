@@ -20,7 +20,7 @@
 
 require_relative "config"
 require_relative "mixin/params_validate"
-require_relative "chef-utils/path_sanity"
+require "chef-utils/path_sanity"
 require_relative "log"
 require_relative "deprecated"
 require_relative "server_api"
@@ -52,7 +52,7 @@ require_relative "policy_builder"
 require_relative "request_id"
 require_relative "platform/rebooter"
 require_relative "mixin/deprecation"
-require "chef-utils" unless defined?(ChefUtils)
+require "chef-utils" unless defined?(ChefUtils::CANARY)
 require "ohai" unless defined?(Ohai::System)
 require "rbconfig"
 require_relative "dist"

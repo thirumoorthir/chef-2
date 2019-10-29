@@ -25,9 +25,12 @@ require_relative "chef-utils/which"
 # All helpers are loaded into the ChefUtils class.
 #
 module ChefUtils
-  extend ChefUtils::DSL
-  extend ChefUtils::PathSanity
-  extend ChefUtils::Service
-  extend ChefUtils::TrainHelpers
-  extend ChefUtils::Which
+  include ChefUtils::DSL
+  include ChefUtils::PathSanity
+  include ChefUtils::Service
+  include ChefUtils::TrainHelpers
+  include ChefUtils::Which
+
+  CANARY = 1 # used as a guard for requires
+  extend self
 end
